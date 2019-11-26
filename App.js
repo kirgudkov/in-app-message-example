@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, StatusBar, Text, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, StatusBar, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 
 import { Notification } from 'react-native-in-app-message';
 
@@ -12,7 +12,11 @@ class App extends React.Component {
 				<TouchableOpacity style={styles.button} onPress={() => Notification.show()}>
 					<Text style={styles.buttonText}>Press me</Text>
 				</TouchableOpacity>
-				<Notification textColor={'#ccc'} text={'Hello world'} />
+				<Notification customComponent={
+					<View style={styles.customView}>
+						<Text>Custom View!</Text>
+					</View>
+				} textColor={'#ccc'} showKnob={false} text={'Hello world'} />
 			</ImageBackground>
 		);
 	}
@@ -36,6 +40,14 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 12,
 		borderColor: '#fff',
+	},
+	customView: {
+		backgroundColor: 'red',
+		width: '100%',
+		height: 300,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 16,
 	},
 });
 
