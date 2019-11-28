@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, StatusBar, Platform, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, StatusBar, Image, Platform, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 
 import { Notification } from 'react-native-in-app-message';
 
@@ -9,10 +9,15 @@ const notificationText = 'Hello World!';
 class App extends React.Component {
 
 	customNotification = React.createRef();
+	customImageNotification = React.createRef();
 	simpleNotification = React.createRef();
 
 	handleOnCustomNotificationPressed = () => {
 		this.customNotification?.current.show();
+	};
+
+	handleOnImageNotificationPressed = () => {
+		this.customImageNotification?.current.show();
 	};
 
 	handleOnSimpleNotificationPressed = () => {
@@ -30,11 +35,21 @@ class App extends React.Component {
 				<TouchableOpacity style={styles.button} onPress={this.handleOnCustomNotificationPressed}>
 					<Text style={styles.buttonText}>Show custom notification</Text>
 				</TouchableOpacity>
+				<TouchableOpacity style={styles.button} onPress={this.handleOnImageNotificationPressed}>
+					<Text style={styles.buttonText}>With image</Text>
+				</TouchableOpacity>
 
 				<Notification ref={this.customNotification} customComponent={
 					<View style={IS_IOS ? styles.customView : styles.customViewAndroid}>
 						<Text>Custom View!</Text>
 					</View>
+				} textColor={'#ccc'} showKnob={false} text={notificationText} />
+
+				<Notification ref={this.customImageNotification} customComponent={
+					<ImageBackground source={{uri: 'sky'}} style={IS_IOS ? styles.customView : styles.customViewAndroid}>
+						<Text>Custom View!</Text>
+						<Image style={styles.imageInner} source={{uri: 'sky'}} />
+					</ImageBackground>
 				} textColor={'#ccc'} showKnob={false} text={notificationText} />
 				<Notification ref={this.simpleNotification} textColor={'#ccc'} text={notificationText} />
 			</ImageBackground>
@@ -76,6 +91,11 @@ const styles = StyleSheet.create({
 		height: 300,
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	imageInner: {
+		borderRadius: 12,
+		width: 100,
+		height: 100,
 	},
 });
 
