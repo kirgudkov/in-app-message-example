@@ -5247,10 +5247,10 @@ react-native-gesture-handler@^1.5.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-in-app-message@^1.0.31:
-  version "1.0.31"
-  resolved "https://registry.yarnpkg.com/react-native-in-app-message/-/react-native-in-app-message-1.0.31.tgz#113696565599e42a1ab0fb4ab7ea2ce56aea20fc"
-  integrity sha512-TQpakAmm0pCeLuf6wjxbmqSpfF15NZqpNdton54YSAok8R9orVKp2cAdv0HFB9GLmXfoxYuREu1CmVbEs7iZZA==
+react-native-in-app-message@1.0.32:
+  version "1.0.32"
+  resolved "https://registry.yarnpkg.com/react-native-in-app-message/-/react-native-in-app-message-1.0.32.tgz#58c6e5ef19b6666d326803a3592b39528ff9a703"
+  integrity sha512-azlPYZka0kNtJwvtxFTNHeggXuT72UBDcGooJyiVBX/cKx88tv47Wct5/VgLnO1jOIpcxhICR/ZLVnsN/jWioA==
 
 react-native@0.61.5:
   version "0.61.5"

@@ -92,6 +92,7 @@ class App extends React.Component {
 	get simple() {
 		return (
 			<Notification
+				hideStatusBar={false}
 				textColor={'#ccc'}
 				text={notificationText}
 				onPress={this.onSimplePress}
