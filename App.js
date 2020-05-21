@@ -1,15 +1,26 @@
 import React from 'react';
-import { StyleSheet, StatusBar, Image, Platform, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
-
+import {
+	StyleSheet,
+	StatusBar,
+	Image,
+	Platform,
+	Text,
+	View,
+	ImageBackground,
+	TouchableOpacity,
+} from 'react-native';
 import { Notification } from 'react-native-in-app-message';
 
 const IS_IOS = Platform.OS === 'ios';
+
 const notificationText = 'Hello World!';
 
 class App extends React.Component {
 
 	customNotification = React.createRef();
+
 	customImageNotification = React.createRef();
+
 	simpleNotification = React.createRef();
 
 	handleOnCustomNotificationPressed = () => {
@@ -24,34 +35,111 @@ class App extends React.Component {
 		this.simpleNotification?.current.show();
 	};
 
-	render() {
+	onSimplePress = () => {
+		console.log('Simple pressed!');
+	};
+
+	onCustomPress = () => {
+		console.log('Custom pressed!');
+	};
+
+	onImagePress = () => {
+		console.log('Image pressed!');
+	};
+
+	get custom() {
 		return (
-			<ImageBackground source={{uri: 'sky'}} style={styles.container}>
-				<StatusBar translucent backgroundColor={'#ffffff33'} barStyle={'light-content'} />
-
-				<TouchableOpacity style={styles.button} onPress={this.handleOnSimpleNotificationPressed}>
-					<Text style={styles.buttonText}>Show simple notification</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.button} onPress={this.handleOnCustomNotificationPressed}>
-					<Text style={styles.buttonText}>Show custom notification</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.button} onPress={this.handleOnImageNotificationPressed}>
-					<Text style={styles.buttonText}>With image</Text>
-				</TouchableOpacity>
-
-				<Notification ref={this.customNotification} customComponent={
+			<Notification
+				onPress={this.onCustomPress}
+				ref={this.customNotification}
+				textColor={'#ccc'}
+				showKnob={false}
+				text={notificationText}
+				customComponent={
 					<View style={IS_IOS ? styles.customView : styles.customViewAndroid}>
 						<Text>Custom View!</Text>
 					</View>
-				} textColor={'#ccc'} showKnob={false} text={notificationText} />
+				}
+			/>
+		);
+	}
 
-				<Notification ref={this.customImageNotification} customComponent={
-					<ImageBackground source={{uri: 'sky'}} style={IS_IOS ? styles.customView : styles.customViewAndroid}>
-						<Text>Custom View!</Text>
-						<Image style={styles.imageInner} source={{uri: 'sky'}} />
+	get image() {
+		return (
+			<Notification
+				textColor={'#ccc'}
+				showKnob={false}
+				text={notificationText}
+				onPress={this.onImagePress}
+				ref={this.customImageNotification}
+				customComponent={
+					<ImageBackground
+						source={{uri: 'sky'}}
+						style={IS_IOS ? styles.customView : styles.customViewAndroid}>
+						<Text>
+							Custom View!
+						</Text>
+						<Image
+							style={styles.imageInner}
+							source={{uri: 'sky'}}
+						/>
 					</ImageBackground>
-				} textColor={'#ccc'} showKnob={false} text={notificationText} />
-				<Notification ref={this.simpleNotification} textColor={'#ccc'} text={notificationText} />
+				}
+			/>
+		);
+	}
+
+	get simple() {
+		return (
+			<Notification
+				textColor={'#ccc'}
+				text={notificationText}
+				onPress={this.onSimplePress}
+				ref={this.simpleNotification}
+			/>
+		);
+	}
+
+	render() {
+		return (
+			<ImageBackground
+				source={{uri: 'sky'}}
+				style={styles.container}>
+
+				<StatusBar
+					translucent
+					backgroundColor={'#ffffff33'}
+					barStyle={'light-content'}
+				/>
+
+				<TouchableOpacity
+					style={styles.button}
+					onPress={this.handleOnSimpleNotificationPressed}>
+					<Text style={styles.buttonText}>
+						Show simple notification
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={this.handleOnCustomNotificationPressed}>
+					<Text style={styles.buttonText}>
+						Show custom notification
+					</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={this.handleOnImageNotificationPressed}>
+					<Text style={styles.buttonText}>
+						With image
+					</Text>
+				</TouchableOpacity>
+
+				{this.custom}
+
+				{this.image}
+
+				{this.simple}
+
 			</ImageBackground>
 		);
 	}
