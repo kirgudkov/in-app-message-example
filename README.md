@@ -1,4 +1,4 @@
-##Run Android
+## Run Android
 ```
 git checkout https://github.com/KirillGudkov/in-app-message-example
 cd <proj_dir>/in-app-message-example
@@ -6,7 +6,7 @@ yarn install
 react-native run-android
 ```
 
-##Run iOS
+## Run iOS
 ```
 git checkout https://github.com/KirillGudkov/in-app-message-example
 cd <proj_dir>/in-app-message-example
