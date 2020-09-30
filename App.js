@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-	StyleSheet,
-	StatusBar,
-	Image,
-	Platform,
-	Text,
-	View,
-	ImageBackground,
-	TouchableOpacity,
-} from 'react-native';
+import { Image, ImageBackground, Platform, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { TapGestureHandler } from 'react-native-gesture-handler';
 import { Notification } from 'react-native-in-app-message';
 
 const IS_IOS = Platform.OS === 'ios';
@@ -47,6 +39,22 @@ class App extends React.Component {
 		console.log('Image pressed!');
 	};
 
+	onTapHandlerStateChange = (event) => {
+		const {state} = event.nativeEvent;
+
+		switch (state) {
+			case 2:
+				// pressIn
+				break;
+			case 4:
+				// pressOut
+				console.log('buttonPressed');
+				break;
+			default:
+				break;
+		}
+	};
+
 	get custom() {
 		return (
 			<Notification
@@ -58,6 +66,11 @@ class App extends React.Component {
 				customComponent={
 					<View style={IS_IOS ? styles.customView : styles.customViewAndroid}>
 						<Text>Custom View!</Text>
+						<TapGestureHandler onHandlerStateChange={this.onTapHandlerStateChange}>
+							<View style={styles.customButton}>
+								<Text>Press me</Text>
+							</View>
+						</TapGestureHandler>
 					</View>
 				}
 			/>
@@ -157,6 +170,13 @@ const styles = StyleSheet.create({
 	buttonText: {
 		color: '#fff',
 		fontSize: 16,
+	},
+	customButton: {
+		marginTop: 24,
+		paddingHorizontal: 16,
+		paddingVertical: 4,
+		borderRadius: 8,
+		backgroundColor: '#549ae0',
 	},
 	button: {
 		marginBottom: 12,
